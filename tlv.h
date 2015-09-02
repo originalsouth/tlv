@@ -32,11 +32,11 @@ using namespace std;
 #define BEGIN "<"+string(__func__)+" "
 #define STRF(a) string(string(#a)+"=\""+to_string(a)+"\" ")
 #define STRA(a) string(string(#a)+"=\""+a+"\" ")
-#define STRFX(a) string(string(xx(#a))+"=\""+to_string(a)+"\" ")
-#define STRAX(a) string(string(xx(#a))+"=\""+a+"\" ")
+#define STRFD(a) string(string(dash(#a))+"=\""+to_string(a)+"\" ")
+#define STRAD(a) string(string(dash(#a))+"=\""+a+"\" ")
 #define END "/>"
 
-string xx(string a)
+string dash(string a)
 {
     replace(a.begin(),a.end(),'_','-');
     return a;
@@ -55,7 +55,7 @@ struct svg
         FILE *fout=fopen(fout_name.c_str(),"w");
         if(fout)
         {
-            const string header="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+to_string(width)+"\" height=\""+to_string(height)+"\">";
+            const string header="<svg xmlns=\"http://www.w3.org/2000/svg\" "+STRF(width)+STRF(height)+">";
             fprintf(fout,"%s\n",header.c_str());
             for(string str: data) fprintf(fout,"    %s\n",str.c_str());
             fprintf(fout,"</svg>\n");
@@ -68,7 +68,7 @@ struct svg
 
 void line(svg *img,double x1,double y1,double x2,double y2,double stroke_width,string stroke)
 {
-    const string str=BEGIN+STRF(x1)+STRF(y1)+STRF(x2)+STRF(y2)+STRFX(stroke_width)+STRA(stroke)+END;
+    const string str=BEGIN+STRF(x1)+STRF(y1)+STRF(x2)+STRF(y2)+STRFD(stroke_width)+STRA(stroke)+END;
     img->data.push_back(str);
 }
 
