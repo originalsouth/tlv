@@ -18,9 +18,9 @@
 int main()
 {
     svg img;
-    rect(&img,0.0,0.0,1000.0,1000.0,"black");
-    line(&img,500.0,500.0,600.0,600.0,20.0,"blue");
-    circle(&img,500.0,500.0,100.0,"green");
+    drw(&img,rect x1=$ y1=$ width=$ height=$ fill="black",0.0,0.0,1000.0,1000.0);
+    drw(&img,line x1="500" y1="500" x2="600" y2="600" stroke-width="20" stroke="blue");
+    drw(&img,circle cx="500" cy="500" r="100" fill="green");
     img.write("output.svg");
     return EXIT_SUCCESS;
 }

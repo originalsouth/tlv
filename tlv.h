@@ -29,19 +29,6 @@
 
 using namespace std;
 
-#define BEGIN "<"+string(__func__)+" "
-#define STRF(a) string(string(#a)+"=\""+to_string(a)+"\" ")
-#define STRA(a) string(string(#a)+"=\""+a+"\" ")
-#define STRFD(a) string(string(dash(#a))+"=\""+to_string(a)+"\" ")
-#define STRAD(a) string(string(dash(#a))+"=\""+a+"\" ")
-#define END "/>"
-
-string dash(string a)
-{
-    replace(a.begin(),a.end(),'_','-');
-    return a;
-}
-
 struct svg
 {
     double width,height;
@@ -55,7 +42,7 @@ struct svg
         FILE *fout=fopen(fout_name.c_str(),"w");
         if(fout)
         {
-            const string header="<svg xmlns=\"http://www.w3.org/2000/svg\" "+STRF(width)+STRF(height)+">";
+            const string header="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+to_string(width)+"\" height=\""+to_string(height)+"\">";
             fprintf(fout,"%s\n",header.c_str());
             for(string str: data) fprintf(fout,"    %s\n",str.c_str());
             fprintf(fout,"</svg>\n");
@@ -66,22 +53,24 @@ struct svg
     }
 };
 
-void line(svg *img,double x1,double y1,double x2,double y2,double stroke_width,string stroke)
+template<typename ...Args> bool tlv(svg *img,string str,Args... args)
 {
-    const string str=BEGIN+STRF(x1)+STRF(y1)+STRF(x2)+STRF(y2)+STRFD(stroke_width)+STRA(stroke)+END;
-    img->data.push_back(str);
+    const vector<double> arg={args...};
+    if(arg.size()==(size_t)count(str.begin(),str.end(),'$'))
+    {
+        string svd="<"+str+"/>";
+        for(double i: arg) svd.replace(svd.find("$"),1,string("\""+to_string(i)+"\""));
+        img->data.push_back(svd);
+        return true;
+    }
+    else
+    {
+        printf("tlv: %lu != %lu learn how to count\n",arg.size(),(size_t)count(str.begin(),str.end(),'$'));
+        return false;
+    }
 }
 
-void rect(svg *img,double x,double y,double width,double height,string fill)
-{
-    const string str=BEGIN+STRF(x)+STRF(y)+STRF(width)+STRF(height)+STRA(fill)+END;
-    img->data.push_back(str);
-}
-
-void circle(svg *img,double cx,double cy,double r,string fill)
-{
-    const string str=BEGIN+STRF(cx)+STRF(cy)+STRF(r)+STRA(fill)+END;
-    img->data.push_back(str);
-}
+#define drw(img,str,...)\
+tlv(img,#str,##__VA_ARGS__)
 #endif
 #endif
