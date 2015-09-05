@@ -27,24 +27,22 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 struct svg
 {
     double width,height;
-    vector<string> data;
+    std::vector<std::string> data;
     svg()
     {
         width=height=1e3;
     }
-    bool write(string fout_name)
+    bool write(std::string fout_name)
     {
         FILE *fout=fopen(fout_name.c_str(),"w");
         if(fout)
         {
-            const string header="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+to_string(width)+"\" height=\""+to_string(height)+"\">";
+            const std::string header="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+std::to_string(width)+"\" height=\""+std::to_string(height)+"\">";
             fprintf(fout,"%s\n",header.c_str());
-            for(string str: data) fprintf(fout,"    %s\n",str.c_str());
+            for(std::string str: data) fprintf(fout,"    %s\n",str.c_str());
             fprintf(fout,"</svg>\n");
             fclose(fout);
             return true;
@@ -53,19 +51,19 @@ struct svg
     }
 };
 
-template<typename ...Args> bool tlv(svg *img,string str,Args... args)
+template<typename ...Args> bool tlv(svg *img,std::string str,Args... args)
 {
-    const vector<double> arg={args...};
+    const std::vector<double> arg={args...};
     if(arg.size()==(size_t)count(str.begin(),str.end(),'$'))
     {
-        string svd="<"+str+"/>";
-        for(double i: arg) svd.replace(svd.find("$"),1,string("\""+to_string(i)+"\""));
+        std::string svd="<"+str+"/>";
+        for(double i: arg) svd.replace(svd.find("$"),1,std::string("\""+std::to_string(i)+"\""));
         img->data.push_back(svd);
         return true;
     }
     else
     {
-        printf("tlv: %lu != %lu learn how to count\n",arg.size(),(size_t)count(str.begin(),str.end(),'$'));
+        printf("tlv: %lu != %lu learn how to count\n",arg.size(),(size_t)std::count(str.begin(),str.end(),'$'));
         return false;
     }
 }
