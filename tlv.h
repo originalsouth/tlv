@@ -35,7 +35,7 @@ struct svg
     {
         width=height=1e3;
     }
-    svg(double)
+    svg(double x)
     {
         width=height=x;
     }
@@ -76,7 +76,27 @@ template<typename ...Args> bool tlv(svg *img,std::string str,Args... args)
     }
 }
 
+template<typename ...Args> bool tlv_text(svg *img,std::string txt,std::string str,Args... args)
+{
+    const std::vector<double> arg={args...};
+    if(arg.size()==(size_t)count(str.begin(),str.end(),'$'))
+    {
+        std::string svd="<text "+str+">";
+        for(double i: arg) svd.replace(svd.find("$"),1,std::string("\""+std::to_string(i)+"\""));
+        svd+=txt+"</text>";
+        img->data.push_back(svd);
+        return true;
+    }
+    else
+    {
+        printf("tlv: %lu != %lu learn how to count\n",arg.size(),(size_t)std::count(str.begin(),str.end(),'$'));
+        return false;
+    }
+}
+
 #define drw(img,str,...)\
 tlv(img,#str,##__VA_ARGS__)
+#define txt(img,txt,str,...)\
+tlv_text(img,txt,#str,##__VA_ARGS__)
 #endif
 #endif

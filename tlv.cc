@@ -21,6 +21,7 @@ int main()
     drw(&img,rect x1=$ y1=$ width=$ height=$ fill="black",0.0,0.0,1000.0,1000.0);
     drw(&img,line x1="500" y1="500" x2="600" y2="600" stroke-width="20" stroke="blue");
     drw(&img,circle cx="500" cy="500" r="100" fill="green");
+    txt(&img,"TLV",x="470" y="505" fill="orange" font-size="36");
     img.write("output.svg");
     return EXIT_SUCCESS;
 }
