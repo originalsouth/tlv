@@ -35,6 +35,14 @@ struct svg
     {
         width=height=1e3;
     }
+    svg(double)
+    {
+        width=height=x;
+    }
+    svg(double w,double h)
+    {
+        width=w,height=h;
+    }
     bool write(std::string fout_name)
     {
         FILE *fout=fopen(fout_name.c_str(),"w");
