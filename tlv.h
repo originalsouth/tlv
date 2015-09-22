@@ -65,6 +65,10 @@ struct svg
     {
         data.insert(data.end(),img->data.begin(),img->data.end());
     }
+    void import(svg *img)
+    {
+        data=img->data;
+    }
     void clear()
     {
         data.clear();
