@@ -65,6 +65,10 @@ struct svg
     {
         data.insert(data.end(),img->data.begin(),img->data.end());
     }
+    void clear()
+    {
+        data.clear();
+    }
 };
 
 template<typename ...Args> bool tlv(svg *img,std::string str,Args... args)
