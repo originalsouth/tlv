@@ -57,6 +57,14 @@ struct svg
         }
         else return false;
     }
+    void prepend(svg *img)
+    {
+        data.insert(data.begin(),img->data.begin(),img->data.end());
+    }
+    void append(svg *img)
+    {
+        data.insert(data.end(),img->data.begin(),img->data.end());
+    }
 };
 
 template<typename ...Args> bool tlv(svg *img,std::string str,Args... args)
