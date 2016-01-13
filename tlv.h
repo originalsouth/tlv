@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <zlib.h>
 
 namespace tlv
 {
@@ -56,28 +57,21 @@ namespace tlv
             }
             else return false;
         }
-        #ifdef __linux__
-        bool zwrite(std::string fout_name)
+        bool zwrite(std::string zout_name)
         {
-            std::string pout_name="gzip - > "+fout_name+"z";
-            FILE *pout=popen(pout_name.c_str(),"w");
-            if(pout)
+            zout_name+="z";
+            gzFile zout=gzopen(zout_name.c_str(),"w");
+            if(zout)
             {
                 const char header[]="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%g\" height=\"%g\">\n";
-                fprintf(pout,header,width,height);
-                for(std::string str: data) fprintf(pout,"    %s\n",str.c_str());
-                fprintf(pout,"</svg>\n");
-                pclose(pout);
+                gzprintf(zout,header,width,height);
+                for(std::string str: data) gzprintf(zout,"    %s\n",str.c_str());
+                gzprintf(zout,"</svg>\n");
+                gzclose(zout);
                 return true;
             }
             else return false;
         }
-        #else
-        bool zwrite(std::string fout_name)
-        {
-            write(fout_name);
-        }
-        #endif
         void prepend(svg *img)
         {
             data.insert(data.begin(),img->data.begin(),img->data.end());
