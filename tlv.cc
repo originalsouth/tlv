@@ -26,7 +26,7 @@ int main()
     //Draw a green circle
     tlv_drw(&img,circle cx="500" cy="500" r="100" fill="green");
     //Write some text
-    tlv_txt(&img,"TLV",x="470" y="505" fill="orange" font-size="36");
+    tlv_yfo(&img,"text","TLV",x="470" y="505" fill="orange" font-size="36");
     //Write svg object to file "output.svg"
     img.write("output.svg");
     //Exit with a smiley face

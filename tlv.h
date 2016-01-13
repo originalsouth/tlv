@@ -49,7 +49,7 @@ namespace tlv
             {
                 const char header[]="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%g\" height=\"%g\">\n";
                 fprintf(fout,header,width,height);
-                for(std::string str: data) fprintf(fout,"    %s\n",str.c_str());
+                for(std::string str: data) fprintf(fout,"%s\n",str.c_str());
                 fprintf(fout,"</svg>\n");
                 fclose(fout);
                 return true;
@@ -79,26 +79,30 @@ namespace tlv
         const size_t size=1+snprintf(nullptr,0,svd.c_str(),args...);
         char *buffer=new(std::nothrow) char[size];
         if(buffer==nullptr) return false;
-        snprintf(buffer,size,svd.c_str(),args...);
-        img->data.push_back(std::string(buffer));
-        delete[] buffer;
-        return true;
+        else
+        {
+            snprintf(buffer,size,svd.c_str(),args...);
+            img->data.push_back(std::string(buffer));
+            delete[] buffer;
+            return true;
+        }
     }
-    template<typename ...Args> bool tlv_text(svg *img,std::string txt,std::string str,Args... args)
+    template<typename ...Args> bool tlv_yfo(svg *img,std::string marker,std::string content,std::string str,Args... args)
     {
         const std::string svd="<text "+str+">";
         const size_t size=1+snprintf(nullptr,0,svd.c_str(),args...);
         char *buffer=new(std::nothrow) char[size];
         if(buffer==nullptr) return false;
-        snprintf(buffer,size,svd.c_str(),args...);
-        img->data.push_back(std::string(buffer)+txt+std::string("</text>"));
-        delete[] buffer;
-        return true;
+        else
+        {
+            snprintf(buffer,size,svd.c_str(),args...);
+            img->data.push_back(std::string(buffer)+content+std::string("</")+marker+std::string(">"));
+            delete[] buffer;
+            return true;
+        }
     }
 }
-#define tlv_drw(img,str,...)\
-tlv::tlv(img,#str,##__VA_ARGS__)
-#define tlv_txt(img,txt,str,...)\
-tlv::tlv_text(img,txt,#str,##__VA_ARGS__)
+#define tlv_drw(img,str,...) tlv::tlv(img,#str,##__VA_ARGS__)
+#define tlv_yfo(img,mrk,txt,str,...) tlv::tlv_yfo(img,mrk,txt,#str,##__VA_ARGS__)
 #endif
 #endif
