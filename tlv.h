@@ -23,7 +23,6 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
-#include <zlib.h>
 
 namespace tlv
 {
@@ -53,21 +52,6 @@ namespace tlv
                 for(std::string str: data) fprintf(fout,"    %s\n",str.c_str());
                 fprintf(fout,"</svg>\n");
                 fclose(fout);
-                return true;
-            }
-            else return false;
-        }
-        bool zwrite(std::string zout_name)
-        {
-            zout_name+="z";
-            gzFile zout=gzopen(zout_name.c_str(),"w");
-            if(zout)
-            {
-                const char header[]="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%g\" height=\"%g\">\n";
-                gzprintf(zout,header,width,height);
-                for(std::string str: data) gzprintf(zout,"    %s\n",str.c_str());
-                gzprintf(zout,"</svg>\n");
-                gzclose(zout);
                 return true;
             }
             else return false;

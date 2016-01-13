@@ -29,8 +29,6 @@ int main()
     tlv_txt(&img,"TLV",x="470" y="505" fill="orange" font-size="36");
     //Write svg object to file "output.svg"
     img.write("output.svg");
-    //Write svg object to compressed file "output.svgz" (only for linux)
-    img.zwrite("output.svg");
     //Exit with a smiley face
     return EXIT_SUCCESS;
 }
