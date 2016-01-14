@@ -21,6 +21,13 @@ int main()
     tlv::svg img;
     //Draw a black rectangle
     tlv_drw(&img,rect x1="%g" y1="%g" width="%g" height="%g" fill="%s",0.0,0.0,img.width,img.height,"black");
+    //Create some animation function
+    auto anim=[&]()
+    {
+        tlv_drw(&img,animate attributeName="r" dur="2s" values="50;250;50" repeatCount="indefinite");
+    };
+    //Animate on circle
+    tlv_for(&img,"circle",anim,cx="500" cy="500" r="50" fill="pink");
     //Draw a blue line
     tlv_drw(&img,line x1="500" y1="500" x2="600" y2="600" stroke-width="20" stroke="blue");
     //Draw a green circle
@@ -29,6 +36,6 @@ int main()
     tlv_yfo(&img,"text","TLV",x="470" y="505" fill="orange" font-size="36");
     //Write svg object to file "output.svg"
     img.write("output.svg");
-    //Exit with a smiley face
+    //Exit with a smiley face now open the svg with a text editor and compare :)
     return EXIT_SUCCESS;
 }

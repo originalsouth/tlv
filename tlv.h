@@ -89,7 +89,7 @@ namespace tlv
     }
     template<typename ...Args> bool tlv_yfo(svg *img,std::string marker,std::string content,std::string str,Args... args)
     {
-        const std::string svd="<text "+str+">";
+        const std::string svd="<"+marker+" "+str+">";
         const size_t size=1+snprintf(nullptr,0,svd.c_str(),args...);
         char *buffer=new(std::nothrow) char[size];
         if(buffer==nullptr) return false;
@@ -101,8 +101,25 @@ namespace tlv
             return true;
         }
     }
+    template<typename ...Args,typename lambda> bool tlv_for(svg *img,std::string marker,lambda x,std::string str,Args... args)
+    {
+        const std::string svd="<"+marker+" "+str+">";
+        const size_t size=1+snprintf(nullptr,0,svd.c_str(),args...);
+        char *buffer=new(std::nothrow) char[size];
+        if(buffer==nullptr) return false;
+        else
+        {
+            snprintf(buffer,size,svd.c_str(),args...);
+            img->data.push_back(std::string(buffer));
+            x();
+            img->data.push_back(std::string("</")+marker+std::string(">"));
+            delete[] buffer;
+            return true;
+        }
+    }
 }
 #define tlv_drw(img,str,...) tlv::tlv(img,#str,##__VA_ARGS__)
 #define tlv_yfo(img,mrk,txt,str,...) tlv::tlv_yfo(img,mrk,txt,#str,##__VA_ARGS__)
+#define tlv_for(img,mrk,lambda,str,...) tlv::tlv_for(img,mrk,lambda,#str,##__VA_ARGS__)
 #endif
 #endif
