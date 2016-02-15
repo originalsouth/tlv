@@ -18,6 +18,11 @@ Enjoy!
 Feel free to reuse and contribute, pull requests are very welcome!
 This code is (and forever will be) a work in progress.
 
+### Todo
+* Add more documentation
+* Add functionality and improvements
+* Keep lightweight!
+
 ### Usage
 Include tlv.h in your project, nothing much you need to do.
 You can see a working example in tlv.cc
