@@ -29,7 +29,7 @@ int main()
     //Write some text
     tlv_yfo(&img,"text","TLV",x="470" y="505" fill="orange" font-size="36");
     //Write svg object to file "output.svg"
-    img.write("output.svg");
+    img.write("tlv.svg");
     //Exit with a smiley face now open the svg with a text editor (preferably neovim) and compare :)
     return EXIT_SUCCESS;
 }
