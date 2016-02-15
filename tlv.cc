@@ -1,16 +1,10 @@
-// TLV some version
-// An extremely lightweight svg header only library written in C++11
-// By Benny van Zuiden, MSc
-// Leiden, NL 2015
-// Feel free to use for any of your projects while retaining this banner
-// Compiled binaries that aren't free and open source, should produce this banner in the about or version information
-// You are free to fork and redistribute while retaining this banner somewhere "based on this banner or something"
-// AS USUAL: THIS SOFTWARE IS EXTREMELY BAD FOR YOU AND CAN ONLY BE USED AT YOUR OWN RISK
-// THIS SOFTWARE WILL DESTROY EVERYTHING YOU OWN INCLUDING YOUR BODY
-// DONT USE THIS SOFTWARE
-// IF YOU DO IT IS AT YOUR OWN RISK
-//
-// TLV is and always will be a work in progress, pull requests, input, suggestions are very welcome
+/* By BC van Zuiden -- Leiden, February 2016 */
+/* Probably very buggy USE AT OWN RISK this will brick everything you own */
+/* NOBODY but YOU is liable for anything that happened in result of using this */
+/* WARNING: DON'T RUN THIS PROGRAM THIS WILL DESTROY YOUR COMPUTER AND/OR HOUSE */
+/* Any copyrighted piece of code within this code is NOT mine */
+/* Inclusion of that code is forced upon me by a scary anonymous guy with a gun*/
+/* https://github.com/originalsouth/tlv */
 
 //Include the tlv header
 #include "tlv.h"
@@ -36,6 +30,6 @@ int main()
     tlv_yfo(&img,"text","TLV",x="470" y="505" fill="orange" font-size="36");
     //Write svg object to file "output.svg"
     img.write("output.svg");
-    //Exit with a smiley face now open the svg with a text editor and compare :)
+    //Exit with a smiley face now open the svg with a text editor (preferably neovim) and compare :)
     return EXIT_SUCCESS;
 }
