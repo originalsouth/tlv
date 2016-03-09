@@ -19,6 +19,8 @@ Feel free to reuse and contribute, pull requests are very welcome!
 This code is (and forever will be) a work in progress.
 
 ### Todo
+* Add support to change header
+* Add convienent way to wrap directives
 * Add more documentation
 * Add functionality and improvements
 * Keep lightweight!
