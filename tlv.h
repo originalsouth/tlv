@@ -37,6 +37,7 @@ namespace tlv
     template<typename ...Args> bool tlv_drw(svg *img,std::string str,Args... args);
     template<typename ...Args> bool tlv_hdr(svg *img,std::string str,Args... args);
     template<typename ...Args> bool tlv_yfo(svg *img,std::string marker,std::string content,std::string str,Args... args);
+    template<typename ...Args> bool tlv_obj(svg *img,std::string marker,svg *object,std::string str,Args... args);
     template<typename ...Args,typename lambda> bool tlv_for(svg *img,std::string marker,lambda x,std::string str,Args... args);
     svg::svg()
     {
@@ -160,6 +161,7 @@ namespace tlv
 #define tlv_drw(img,str,...) tlv::tlv_drw(img,#str,##__VA_ARGS__)
 #define tlv_hdr(img,str,...) tlv::tlv_hdr(img,#str,##__VA_ARGS__)
 #define tlv_yfo(img,mrk,txt,str,...) tlv::tlv_yfo(img,mrk,txt,#str,##__VA_ARGS__)
+#define tlv_obj(img,mrk,object,str,...) tlv::tlv_for(img,mrk,object,#str,##__VA_ARGS__)
 #define tlv_for(img,mrk,lambda,str,...) tlv::tlv_for(img,mrk,lambda,#str,##__VA_ARGS__)
 #endif
 #endif
