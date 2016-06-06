@@ -41,6 +41,7 @@ namespace tlv
     template<typename ...Args> bool tlv_yfo(svg *img,std::string marker,std::string content,std::string str,Args... args);
     template<typename ...Args> bool tlv_obj(svg *img,std::string marker,svg *object,std::string str,Args... args);
     template<typename ...Args,typename lambda> bool tlv_for(svg *img,std::string marker,lambda x,std::string str,Args... args);
+    std::string rgb(char r,char g,char b);
 }
 
 tlv::svg::svg()
@@ -194,6 +195,19 @@ template<typename ...Args,typename lambda> bool tlv::tlv_for(svg *img,std::strin
         delete[] buffer;
         return true;
     }
+}
+
+std::string tlv::rgb(char r,char g,char b)
+{
+    char cstr[3];
+    std::string retval=std::string("#");
+    snprintf(cstr,3,"%02X",r);
+    retval+=std::string(cstr);
+    snprintf(cstr,3,"%02X",g);
+    retval+=std::string(cstr);
+    snprintf(cstr,3,"%02X",b);
+    retval+=std::string(cstr);
+    return retval;
 }
 
 #define tlv_hdr(img,str,...) tlv::tlv_hdr(img,#str,##__VA_ARGS__)
