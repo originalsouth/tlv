@@ -21,7 +21,7 @@ int main()
         tlv_drw(&img,animate attributeName="r" dur="2s" values="50;250;50" repeatCount="indefinite");
     };
     //Animate on circle
-    tlv_for(&img,"circle",anim,cx="500" cy="500" r="50" fill="pink");
+    tlv_for(&img,"circle",anim,cx="500" cy="500" r="50" fill="yellow");
     //Draw a blue line
     tlv_drw(&img,line x1="500" y1="500" x2="600" y2="600" stroke-width="20" stroke="blue");
     //Draw a green circle

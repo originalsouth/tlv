@@ -26,7 +26,7 @@ This code is (and forever will be) a work in progress.
 ### Usage
 Include tlv.h in your project, nothing much you need to do.
 You can see a working example in tlv.cc
-You can find more information svg's [here](https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html) and [here](https://commons.wikimedia.org/wiki/SVG_examples).
+You can find more information on svg's [here](https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html) and [here](https://commons.wikimedia.org/wiki/SVG_examples).
 
 ### Building
 To build the example file (tlv.cc) run something like:
