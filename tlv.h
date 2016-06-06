@@ -15,6 +15,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
 #include <string>
 #include <vector>
 
@@ -41,7 +42,8 @@ namespace tlv
     template<typename ...Args> bool tlv_yfo(svg *img,std::string marker,std::string content,std::string str,Args... args);
     template<typename ...Args> bool tlv_obj(svg *img,std::string marker,svg *object,std::string str,Args... args);
     template<typename ...Args,typename lambda> bool tlv_for(svg *img,std::string marker,lambda x,std::string str,Args... args);
-    std::string rgb(char r,char g,char b);
+    std::string rgb(unsigned char r,unsigned char g,unsigned char b);
+    std::string hsv(double h,double s,double v);
 }
 
 tlv::svg::svg()
@@ -197,7 +199,7 @@ template<typename ...Args,typename lambda> bool tlv::tlv_for(svg *img,std::strin
     }
 }
 
-std::string tlv::rgb(char r,char g,char b)
+std::string tlv::rgb(unsigned char r,unsigned char g,unsigned char b)
 {
     char cstr[3];
     std::string retval=std::string("#");
@@ -208,6 +210,23 @@ std::string tlv::rgb(char r,char g,char b)
     snprintf(cstr,3,"%02X",b);
     retval+=std::string(cstr);
     return retval;
+}
+
+std:: string tlv::hsv(double h,double s,double v)
+{
+    h/=60.0,v*=256.0;
+    if(v>255.0) v=255.0;
+    const double f=h-std::floor(h),p=v*(1.0-s),q=v*(1.0-s*f),t=v*(1.0-(1.0-f)*s);
+    switch((int)h)
+    {
+        case 0: return tlv::rgb(v,t,p); break;
+        case 1: return tlv::rgb(q,v,p); break;
+        case 2: return tlv::rgb(p,v,t); break;
+        case 3: return tlv::rgb(p,q,v); break;
+        case 4: return tlv::rgb(t,p,v); break;
+        case 5: return tlv::rgb(v,p,q); break;
+        default: return tlv::rgb(0,0,0); break;
+    }
 }
 
 #define tlv_hdr(img,str,...) tlv::tlv_hdr(img,#str,##__VA_ARGS__)
