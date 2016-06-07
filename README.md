@@ -11,7 +11,7 @@ An extremely lightweight svg header only library written in C++11
 ```
 ### About
 tlv aims to create a lightweight svg header only library, that makes creating svg's fast and easy. 
-Currently tlv doesn't protect you from shooting yourself in your foot as it just a nice way of writing text to svg file.
+Currently tlv doesn't protect you from shooting yourself in your foot, as in the end it just a nice wrapper to write text to a svg file.
 tlv is and always will be a work in progress, pull requests, input, suggestions are very welcome.
 Enjoy!
 
