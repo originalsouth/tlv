@@ -23,11 +23,11 @@ int main()
     //Animate on circle
     tlv_for(&img,"circle",anim,cx="500" cy="500" r="50" fill="yellow");
     //Draw a blue line
-    tlv_drw(&img,line x1="500" y1="500" x2="600" y2="600" stroke-width="20" stroke="blue");
+    tlv_drw(&img,line x1="500" y1="500" x2="600" y2="600" stroke-width="20" stroke="%s",tlv::rgb(0,0,0xFF).c_str());
     //Draw a green circle
     tlv_drw(&img,circle cx="500" cy="500" r="100" fill="green");
     //Write some text
-    tlv_yfo(&img,"text","TLV",x="470" y="505" fill="orange" font-size="36");
+    tlv_yfo(&img,"text","tlv",x="500" y="510" fill="orange" text-anchor="middle" font-size="36" font-family="DejaVu Sans" );
     //Write svg object to file "output.svg"
     img.write("tlv.svg");
     //Exit with a smiley face now open the svg with a text editor (preferably neovim) and compare :)
