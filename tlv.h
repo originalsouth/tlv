@@ -212,20 +212,20 @@ std::string tlv::rgb(unsigned char r,unsigned char g,unsigned char b)
     return retval;
 }
 
-std:: string tlv::hsv(double h,double s,double v)
+std::string tlv::hsv(double h,double s,double v)
 {
     h/=60.0,v*=256.0;
     if(v>255.0) v=255.0;
     const double f=h-std::floor(h),p=v*(1.0-s),q=v*(1.0-s*f),t=v*(1.0-(1.0-f)*s);
     switch((int)h)
     {
-        case 0: return tlv::rgb(v,t,p); break;
-        case 1: return tlv::rgb(q,v,p); break;
-        case 2: return tlv::rgb(p,v,t); break;
-        case 3: return tlv::rgb(p,q,v); break;
-        case 4: return tlv::rgb(t,p,v); break;
-        case 5: return tlv::rgb(v,p,q); break;
-        default: return tlv::rgb(0,0,0); break;
+        case 0: return tlv::rgb(v,t,p);
+        case 1: return tlv::rgb(q,v,p);
+        case 2: return tlv::rgb(p,v,t);
+        case 3: return tlv::rgb(p,q,v);
+        case 4: return tlv::rgb(t,p,v);
+        case 5: return tlv::rgb(v,p,q);
+        default: return tlv::rgb(0,0,0);
     }
 }
 
